@@ -1,0 +1,61 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: purby-backend
+    env_file:
+      - .env
+    environment:
+      APP_ENV: ${APP_ENV:-docker}
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-purby}
+      POSTGRES_USER: ${POSTGRES_USER:-purby}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-purby1234}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://purby:purby1234@postgres:5432/purby}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: purby-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-purby}
+      POSTGRES_USER: ${POSTGRES_USER:-purby}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-purby1234}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-purby} -d ${POSTGRES_DB:-purby}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: purby-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_EXTERNAL_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
