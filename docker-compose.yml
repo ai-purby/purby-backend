@@ -38,7 +38,7 @@ services:
     ports:
       - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
     volumes:
-      - ./db/postgres/data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-purby} -d ${POSTGRES_DB:-purby}"]
       interval: 10s
@@ -53,5 +53,9 @@ services:
     ports:
       - "${REDIS_EXTERNAL_PORT:-6379}:6379"
     volumes:
-      - ./db/redis/data:/data
+      - redis_data:/data
     restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
