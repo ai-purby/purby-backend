@@ -13,9 +13,6 @@ __pycache__/
 .env*
 !.env.example
 
-# Docker Volume Data
-db/**/data/ 
-
 # OS & Editor
 .DS_Store
 .vscode/

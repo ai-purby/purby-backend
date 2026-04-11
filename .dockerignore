@@ -17,9 +17,6 @@ __pycache__/
 # Environments
 .env*
 
-# Docker Volume Data
-db/
-
 # OS & Editor
 .DS_Store
 .vscode/
