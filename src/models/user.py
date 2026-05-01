@@ -2,10 +2,13 @@
 from src.core.database import Base  # Base import
 import enum, uuid
 from datetime import datetime, time
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from sqlalchemy import String, DateTime, text, ForeignKey, Time, Integer, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
+
+if TYPE_CHECKING:
+    from src.models.device import Device
 
 # Enum Class
 class SessionStatus(str, enum.Enum):
@@ -70,6 +73,12 @@ class User(Base):
 
     sessions: Mapped[list["AuthSession"]] = relationship(
         "AuthSession",
+        back_populates = "user",
+        cascade= "all, delete-orphan"
+    )
+
+    devices: Mapped[list["Device"]] = relationship(
+        "Device",
         back_populates = "user",
         cascade= "all, delete-orphan"
     )
@@ -152,10 +161,10 @@ class AuthSession(Base):
         nullable = False
     )
 
-    # device_id: Mapped[uuid.UUID] = mapped_column(
-    #     ForeignKey("devices.id", ondelete = "CASCADE"),
-    #     nullable = False
-    # )
+    device_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("devices.id", ondelete = "CASCADE"),
+        nullable = False
+    )
 
     refresh_token_hash: Mapped[str] = mapped_column(
         String(255),
@@ -195,3 +204,10 @@ class AuthSession(Base):
         "User", 
         back_populates = "sessions"
     )
+
+    device: Mapped["Device"] = relationship(
+        "Device", 
+        back_populates = "auth_sessions"
+    )
+
+
