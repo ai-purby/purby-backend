@@ -49,7 +49,7 @@ class Device(Base):
         nullable = False
     )
 
-    platform: Mapped[DevicePlatform] = mapped_column(
+    platform: Mapped[DevicePlatform | None] = mapped_column(
         Enum(DevicePlatform),
         nullable=True
     )
