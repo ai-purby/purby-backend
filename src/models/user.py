@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from src.models.device import Device
     from src.models.system import Notification
     from src.models.system import SystemLog
+    from src.models.briefing import Briefing
 
 
 # Enum Class
@@ -94,6 +95,12 @@ class User(Base):
 
     system_logs: Mapped[list["SystemLog"]] = relationship(
         "SystemLog",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    briefings: Mapped[list["Briefing"]] = relationship(
+        "Briefing",
         back_populates= "user",
         cascade= "all, delete-orphan"
     )
