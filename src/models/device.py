@@ -88,12 +88,14 @@ class Device(Base):
 
     desktop_links: Mapped[list["DeviceLink"]] = relationship(
         "DeviceLink", 
+        foreign_keys="[DeviceLink.desktop_device_id]",
         back_populates = "desktop_device",
         cascade = "all, delete-orphan"
     )
 
     mobile_links: Mapped[list["DeviceLink"]] = relationship(
         "DeviceLink", 
+        foreign_keys="[DeviceLink.mobile_device_id]",
         back_populates = "mobile_device",
         cascade = "all, delete-orphan"
     )
