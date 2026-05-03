@@ -10,6 +10,7 @@ from sqlalchemy.dialects.postgresql import UUID
 if TYPE_CHECKING:
     from src.models.user import User, AuthSession
     from src.models.system import SystemLog
+    from src.models.voice import VoiceSession
 
 # Enum Class
 class DeviceType(str, enum.Enum) :
@@ -105,6 +106,12 @@ class Device(Base):
 
     system_logs: Mapped[list["SystemLog"]] = relationship(
         "SystemLog",
+        back_populates= "device",
+        cascade= "all, delete-orphan"
+    )
+
+    voice_sessions: Mapped[list["VoiceSession"]] = relationship(
+        "VoiceSession",
         back_populates= "device",
         cascade= "all, delete-orphan"
     )

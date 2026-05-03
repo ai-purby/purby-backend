@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from src.models.system import Notification
     from src.models.system import SystemLog
     from src.models.briefing import Briefing
-
+    from src.models.voice import VoiceSession, ConversationEvent
 
 # Enum Class
 class SessionStatus(str, enum.Enum):
@@ -101,6 +101,18 @@ class User(Base):
 
     briefings: Mapped[list["Briefing"]] = relationship(
         "Briefing",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    voice_sessions: Mapped[list["VoiceSession"]] = relationship(
+        "VoiceSession",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    conversation_events: Mapped[list["ConversationEvent"]] = relationship(
+        "ConversationEvent",
         back_populates= "user",
         cascade= "all, delete-orphan"
     )
