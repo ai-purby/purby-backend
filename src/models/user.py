@@ -210,7 +210,6 @@ class AuthSession(Base):
 
     revoked_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone = True),
-        server_default = text("now()"),
         nullable = True
     )
 
