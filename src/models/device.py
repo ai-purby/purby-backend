@@ -9,6 +9,7 @@ from sqlalchemy.dialects.postgresql import UUID
 
 if TYPE_CHECKING:
     from src.models.user import User, AuthSession
+    from src.models.system import SystemLog
 
 # Enum Class
 class DeviceType(str, enum.Enum) :
@@ -100,6 +101,12 @@ class Device(Base):
         "AuthSession", 
         back_populates = "device",
         cascade = "all, delete-orphan"
+    )
+
+    system_logs: Mapped[list["SystemLog"]] = relationship(
+        "SystemLog",
+        back_populates= "device",
+        cascade= "all, delete-orphan"
     )
 
 # device_links(id, desktop_device_id, mobile_device_id, status, linked_at, revoked_at)

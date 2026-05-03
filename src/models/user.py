@@ -9,6 +9,9 @@ from sqlalchemy.dialects.postgresql import UUID
 
 if TYPE_CHECKING:
     from src.models.device import Device
+    from src.models.system import Notification
+    from src.models.system import SystemLog
+
 
 # Enum Class
 class SessionStatus(str, enum.Enum):
@@ -80,6 +83,18 @@ class User(Base):
     devices: Mapped[list["Device"]] = relationship(
         "Device",
         back_populates = "user",
+        cascade= "all, delete-orphan"
+    )
+
+    notifications: Mapped[list["Notification"]] = relationship(
+        "Notification",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    system_logs: Mapped[list["SystemLog"]] = relationship(
+        "SystemLog",
+        back_populates= "user",
         cascade= "all, delete-orphan"
     )
 
