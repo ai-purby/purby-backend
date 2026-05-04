@@ -10,6 +10,7 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 if TYPE_CHECKING:
     from src.models.user import User
     from src.models.device import Device
+    from src.models.memory import Memory
 
 # Enum Class
 class VoiceStatus(str, enum.Enum):
@@ -216,5 +217,11 @@ class ConversationEvent(Base):
     user: Mapped["User"] = relationship(
         "User", 
         back_populates = "conversation_events"
+    )
+
+    memories: Mapped[list["Memory"]] = relationship(
+        "Memory",
+        back_populates= "conversation_event",
+        cascade= "all, delete-orphan"
     )
 

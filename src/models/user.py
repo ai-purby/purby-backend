@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from src.models.briefing import Briefing
     from src.models.voice import VoiceSession, ConversationEvent
     from src.models.schedule import Schedule
+    from src.models.memory import Memory
 
 # Enum Class
 class SessionStatus(str, enum.Enum):
@@ -120,6 +121,12 @@ class User(Base):
 
     schedules: Mapped[list["Schedule"]] = relationship(
         "Schedule",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    memories: Mapped[list["Memory"]] = relationship(
+        "Memory",
         back_populates= "user",
         cascade= "all, delete-orphan"
     )
