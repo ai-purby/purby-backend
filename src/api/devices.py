@@ -5,7 +5,4 @@ router = APIRouter(
     tags=["devices"],
 )
 
-@router.get("")
-def hi():
-    return "good"
 
