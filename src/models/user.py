@@ -141,10 +141,9 @@ class UserSetting(Base):
         primary_key = True
     )
 
-    personality_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("character_personalities.id", ondelete = "SET DEFAULT"),
-        server_default=text("'00000000-0000-0000-0000-000000000000'"),
-        nullable = False  # 설정에서 캐릭터 성격 지정 안 하면 default 성격으로 들어감
+    personality_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        ForeignKey("character_personalities.id", ondelete = "SET NULL"),
+        nullable = True  # 캐릭터 데이터 확정되면 False로 변경 및 기본값 지정 예정
     )
     
     remind_before_minutes: Mapped[Optional[int]] = mapped_column( 
