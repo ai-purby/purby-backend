@@ -1,11 +1,25 @@
+# Git
 .git
 .gitignore
-.venv
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache
-.mypy_cache
+.dockerignore
+
+# Virtual Environment
+.venv/
+venv/
+
+# Python Cache & Build
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.env*
+
+# OS & Editor
 .DS_Store
-.env
+.vscode/
+
+# Logs
+*.log
