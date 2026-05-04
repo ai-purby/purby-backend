@@ -1,5 +1,6 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 from src.api.weather import router as weather_router
+from src.api.devices import router as devices_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -15,14 +16,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-api_router = APIRouter(prefix="/api")
-
-@api_router.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-app.include_router(api_router)
-app.include_router(weather_router)
-
-
+app.include_router(weather_router, prefix="/api")
+app.include_router(devices_router, prefix="/api")
