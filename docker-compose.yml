@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: purby-backend
+    volumes:
+      - .:/app
     env_file:
       - .env
     environment:
