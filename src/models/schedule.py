@@ -1,9 +1,9 @@
 # schedules / recurrence_rules / schedule_instances
 from src.core.database import Base  # Base import
 import enum, uuid
-from datetime import datetime, time
+from datetime import datetime
 from typing import Optional, TYPE_CHECKING
-from sqlalchemy import String, DateTime, text, ForeignKey, Time, Integer, Enum, Boolean
+from sqlalchemy import String, DateTime, text, ForeignKey, Integer, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 

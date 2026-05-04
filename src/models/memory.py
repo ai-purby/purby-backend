@@ -1,9 +1,9 @@
 # memories / memory_types / memory_categories / memory_embeddings
 from src.core.database import Base  # Base import
-import enum, uuid
+import uuid
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING, Any
-from sqlalchemy import String, DateTime, text, ForeignKey, Enum, Text, Boolean, Numeric
+from sqlalchemy import String, DateTime, text, ForeignKey, Text, Boolean, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from pgvector.sqlalchemy import Vector
