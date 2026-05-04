@@ -1,19 +1,27 @@
 from fastapi import APIRouter, Query
-from src.services.weather_service import fetch_forecast
-from src.services.weather_service import fetch_current
+from src.services.weather_service import get_current_weather
+from src.services.weather_service import get_forecast_weather
+from src.services.weather_service import get_air_pollution
+from enum import Enum
 
 router = APIRouter(
     prefix="/weather",
     tags=["weather"],
 )
 
-@router.get("/forecast")
-def get_forecast():
-    return fetch_forecast()
+class WeatherType(str, Enum):
+    current = "current"
+    forecast = "forecast"
+    air_pollution = "air_pollution"
 
-@router.get("/current")
-def get_current():
-    return fetch_current()
+@router.get("")
+async def get_weather(type: WeatherType, city: str):
+    if type == WeatherType.current:
+        return await get_current_weather(city)
 
-# @router.get("/pollution")
-    return fetch_pollution()
+    if type == WeatherType.forecast:
+        return await get_forecast_weather(city)
+
+    if type == WeatherType.air_pollution:
+        return await get_air_pollution(city)
+

@@ -5,10 +5,11 @@ import httpx
 
 from src.schemas.weather import WeatherForecastResponse
 from src.schemas.weather import currentWeatherResponse
+from src.schemas.weather import airPollutionResponse
 
 load_dotenv()
 
-def fetch_forecast() -> WeatherForecastResponse:
+def get_forecast_weather(city: str) -> WeatherForecastResponse:
     url = os.getenv("OPENWEATHER_FORECAST_API_URL") 
 
     if not url:
@@ -44,7 +45,7 @@ def fetch_forecast() -> WeatherForecastResponse:
     )
 
 
-def fetch_current() -> currentWeatherResponse:
+def get_current_weather(city: str) -> currentWeatherResponse:
     url = os.getenv("OPENWEATHER_CURRENT_API_URL")
 
     if not url:
@@ -69,4 +70,11 @@ def fetch_current() -> currentWeatherResponse:
         }
     );
 
-# def fetch_air_pollution() ->
+def get_air_pollution(city: str) -> airPollutionResponse:
+    url = os.getenv("OPENWEATHER_CURRENT_API_URL")
+
+    if not url:
+        raise RuntimeError("OPENWEATHER_CURRENT_API_URL is required")
+    
+    with httpx.Client(timeout=5.0) as client:
+        response = client.get(url)

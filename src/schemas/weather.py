@@ -31,7 +31,7 @@ pm10: 미세먼지
 status: UI 상태값
 '''
 
-class AirPollutionResponse(BaseModel):
+class airPollutionResponse(BaseModel):
     aqi: int
     aqi_label: str
     pm2_5: float
