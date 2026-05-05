@@ -15,13 +15,6 @@ class WeatherType(str, Enum):
     air_pollution = "air_pollution"
 
 @router.get("")
-async def get_weather(type: WeatherType, city: str):
-    if type == WeatherType.current:
-        return await get_current_weather(city)
-
-    if type == WeatherType.forecast:
-        return await get_forecast_weather(city)
-
-    if type == WeatherType.air_pollution:
-        return await get_air_pollution(city)
+async def get_weather():
+        return await get_weather()
 

@@ -6,10 +6,14 @@ import httpx
 from src.schemas.weather import WeatherForecastResponse
 from src.schemas.weather import currentWeatherResponse
 from src.schemas.weather import airPollutionResponse
+from src.schemas.weather import WeatherResponse
 
 load_dotenv()
 
-def get_forecast_weather(city: str) -> WeatherForecastResponse:
+def get_weather() -> WeatherResponse:
+    
+
+def get_forecast_weather() -> WeatherForecastResponse:
     url = os.getenv("OPENWEATHER_FORECAST_API_URL") 
 
     if not url:
@@ -45,7 +49,7 @@ def get_forecast_weather(city: str) -> WeatherForecastResponse:
     )
 
 
-def get_current_weather(city: str) -> currentWeatherResponse:
+def get_current_weather() -> currentWeatherResponse:
     url = os.getenv("OPENWEATHER_CURRENT_API_URL")
 
     if not url:
@@ -70,7 +74,7 @@ def get_current_weather(city: str) -> currentWeatherResponse:
         }
     );
 
-def get_air_pollution(city: str) -> airPollutionResponse:
+def get_air_pollution() -> airPollutionResponse:
     url = os.getenv("OPENWEATHER_CURRENT_API_URL")
 
     if not url:

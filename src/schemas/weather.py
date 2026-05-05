@@ -1,18 +1,5 @@
 from pydantic import BaseModel
 
-class WeatherForecastItem(BaseModel):
-    forecast_at: str
-    temperature: float
-    feels_like: float
-    temp_min: float
-    temp_max: float
-    wind_speed: float
-    description: str
-    icon: str
-
-class WeatherForecastResponse(BaseModel):
-    items: list[WeatherForecastItem]
-
 class currentWeatherResponse(BaseModel):
     weather_main: str
     description: str
@@ -23,13 +10,28 @@ class currentWeatherResponse(BaseModel):
     temp_max: float
     humidity: int
 
-'''
-aqi: 공기질 지수 aqi (1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor)
-aqi_label: "좋음" "보통" "나쁨"
-pm2_5: 초미세먼지
-pm10: 미세먼지
-status: UI 상태값
-'''
+class WeatherForecastItem(BaseModel):
+    forecast_at: str
+    temperature: float
+    feels_like: float
+    temp_min: float
+    temp_max: float
+    wind_speed: float
+    description: str
+    icon: str
+
+# class WeatherForecastResponse(BaseModel):
+#     items: list[WeatherForecastItem]
+
+
+
+# '''
+# aqi: 공기질 지수 aqi (1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor)
+# aqi_label: "좋음" "보통" "나쁨"
+# pm2_5: 초미세먼지
+# pm10: 미세먼지
+# status: UI 상태값
+# '''
 
 class airPollutionResponse(BaseModel):
     aqi: int
@@ -37,3 +39,8 @@ class airPollutionResponse(BaseModel):
     pm2_5: float
     pm10: float
     status: str
+
+class WeatherResponse(BaseModel):
+    current: list[currentWeatherResponse]
+    forecast: list[WeatherForecastItem]
+    air_pollution: list[airPollutionResponse]
