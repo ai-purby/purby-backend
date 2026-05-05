@@ -8,3 +8,7 @@ def generate_pairing_code() -> str:
 
 def normalize_pairing_code(code: str) -> str:
     return code.replace("-", "").strip().upper()
+
+def format_pairing_code(code: str) -> str:
+    normalized_code = normalize_pairing_code(code)
+    return f"{normalized_code[:4]}-{normalized_code[4:]}"
