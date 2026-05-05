@@ -22,7 +22,7 @@ class SessionStatus(str, enum.Enum):
     REVOKED = "revoked"
     EXPIRED = "expired"
 
-# users(id, name, email, timezone, created_at, updated_at)
+# users(id, name, email, location, created_at, updated_at)
 class User(Base):
     # 테이블 이름
     __tablename__ = "users"
@@ -51,9 +51,9 @@ class User(Base):
         nullable = False
     )
 
-    timezone: Mapped[str] = mapped_column(
+    location: Mapped[str] = mapped_column(
         String(30),
-        default = "Asia/Seoul",
+        default = "",
         nullable = False
     )
 
@@ -255,5 +255,4 @@ class AuthSession(Base):
         "Device", 
         back_populates = "auth_sessions"
     )
-
 
