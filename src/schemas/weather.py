@@ -9,6 +9,7 @@ class currentWeatherResponse(BaseModel):
     temp_min: float
     temp_max: float
     humidity: int
+    pop: float
 
 class WeatherForecastItem(BaseModel):
     forecast_at: str
@@ -17,12 +18,12 @@ class WeatherForecastItem(BaseModel):
     temp_min: float
     temp_max: float
     wind_speed: float
+    pop: float
     description: str
     icon: str
 
-# class WeatherForecastResponse(BaseModel):
-#     items: list[WeatherForecastItem]
-
+class WeatherForecastResponse(BaseModel):
+    items: list[WeatherForecastItem]
 
 
 # '''
@@ -41,6 +42,6 @@ class airPollutionResponse(BaseModel):
     status: str
 
 class WeatherResponse(BaseModel):
-    current: list[currentWeatherResponse]
+    current: currentWeatherResponse
     forecast: list[WeatherForecastItem]
-    air_pollution: list[airPollutionResponse]
+    air_pollution: airPollutionResponse
