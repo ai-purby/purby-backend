@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from src.models.voice import VoiceSession, ConversationEvent
     from src.models.schedule import Schedule
     from src.models.memory import Memory
+    from src.models.memo import Memo
 
 # Enum Class
 class SessionStatus(str, enum.Enum):
@@ -127,6 +128,12 @@ class User(Base):
 
     memories: Mapped[list["Memory"]] = relationship(
         "Memory",
+        back_populates= "user",
+        cascade= "all, delete-orphan"
+    )
+
+    memos: Mapped[list["Memo"]] = relationship(
+        "Memo",
         back_populates= "user",
         cascade= "all, delete-orphan"
     )
@@ -255,4 +262,3 @@ class AuthSession(Base):
         "Device", 
         back_populates = "auth_sessions"
     )
-
