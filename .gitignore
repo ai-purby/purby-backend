@@ -1,0 +1,31 @@
+# Python 가상환경
+.venv/
+venv/
+
+# Python 바이트코드 및 빌드 결과물
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# 로컬 설정 및 비밀 정보 (.env.example은 Git에 포함)
+.env
+.env.*
+!.env.example
+
+# 테스트·코드 검사·타입 검사 캐시 및 테스트 커버리지 결과
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# 실행 로그 및 임시 파일
+*.log
+logs/
+tmp/
+
+# macOS 폴더 표시 설정 파일
+.DS_Store
