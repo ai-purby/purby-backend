@@ -1,0 +1,11 @@
+services:
+  backend:
+    container_name: backend
+    build: .
+    ports:
+      # 개발 서버를 이 컴퓨터에서만 접근할 수 있도록 연결
+      - "127.0.0.1:8000:8000"
+    volumes:
+      # 로컬 코드 변경을 컨테이너에 바로 반영
+      - ./app:/app/app
+    command: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
